@@ -1,0 +1,27 @@
+import Joi from 'joi'
+
+class AuthValidator {
+    public register() {
+        const schema: Joi.AnySchema = Joi.object({
+            email: Joi
+                .string()
+                .required()
+                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+
+            password: Joi
+                .string()
+                .min(6)
+                .max(20)
+                .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+            confirmPassword: Joi
+                .string()
+                .required()
+                .equal(Joi.ref('password'))
+
+        })
+        return schema
+    }
+}
+
+export default AuthValidator

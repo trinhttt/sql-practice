@@ -1,21 +1,33 @@
-import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import express from "express"
+import dotenv from 'dotenv'
+import config from './config/ormConfig'
+// import * as router from './routes/index'
+import router from './routes/userRoutes'
+// import User from './entities/user'
+import { createConnection, ConnectionOptions } from "typeorm"
+import errorMiddleware from './middlewares/errorHandler'
+dotenv.config()
 
-createConnection().then(async connection => {
+const app = express()
 
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+const port = process.env.PORT || 3000
+app.use(express.urlencoded({ extended: false }))
+app.use(router)
 
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
+function setDbConnection() {
+    console.log( config)
+    console.log( process.env.DB_DRIVER)
 
-    console.log("Here you can setup and run express/koa/any other framework.");
+    createConnection(config as ConnectionOptions)
+        .then((connection) => {
+            console.log("Has connection to db => ", connection.isConnected);
+        })
+        .catch((error) => console.log("connection error: ", error));
+}
+setDbConnection()
 
-}).catch(error => console.log(error));
+app.listen(port, () => {
+    console.log(`Server started at http://localhost:${port}`)
+})
+
+app.use(errorMiddleware)
