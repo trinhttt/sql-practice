@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn } from "typeorm";
 
 @Entity('users')
 class User {
@@ -17,6 +17,23 @@ class User {
     })
     password: string
 
+    @CreateDateColumn({
+        type: 'timestamp',
+        name: 'created_at'
+    })
+    createdAt: Date
+
+    @CreateDateColumn({
+        type: 'timestamp',
+        name: 'updated_at'
+    })
+    updatedAt: Date
+
+    @CreateDateColumn({
+        type: 'timestamp',
+        name: 'deleted_at'
+    })
+    deletedAt: Date
     // @Column({
     //     length: 50
     // })

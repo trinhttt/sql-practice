@@ -2,7 +2,7 @@ import express from "express"
 import dotenv from 'dotenv'
 import config from './config/ormConfig'
 // import * as router from './routes/index'
-import router from './routes/userRoutes'
+import router from './routes/authRoutes'
 // import User from './entities/user'
 import { createConnection, ConnectionOptions } from "typeorm"
 import errorMiddleware from './middlewares/errorHandler'

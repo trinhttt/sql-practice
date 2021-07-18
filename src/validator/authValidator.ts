@@ -6,8 +6,11 @@ class AuthValidator {
             email: Joi
                 .string()
                 .required()
-                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-
+                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+                .messages({
+                    "any.required": "Please enter email",
+                    "string.email": "Email format does not match",
+                  }),
             password: Joi
                 .string()
                 .min(6)

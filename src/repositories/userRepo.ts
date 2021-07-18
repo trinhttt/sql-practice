@@ -1,15 +1,24 @@
-import { Repository, EntityRepository, getRepository } from 'typeorm'
+import { getRepository } from 'typeorm'
 import User from '../entities/user'
-import { IUser} from '../interfaces/authInterface'
+import { IUser } from '../interfaces/authInterface'
 
-@EntityRepository(User)
-export default class UserRepository extends Repository<User> {
+export default class UserRepository {
+    private readonly userRepo = getRepository(User)
+
     createUser(data: IUser) {
-        const user = getRepository(User).create(data)
-        return getRepository(User).save(data)
+        // const user = this.userRepo.create(data)//?? for what?
+        return this.userRepo.save(data)
     }
 
     findUserByEmail(email: string) {
-        return getRepository(User).findOne({ where: { email } })
+        return this.userRepo.findOne({ where: { email } })
+    }
+
+    getAllUser() {
+        return this.userRepo.find()
+    }
+
+    getUserById(id: string) {
+        return this.userRepo.find({ where: id })
     }
 }

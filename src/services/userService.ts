@@ -30,6 +30,7 @@ export default class UserService {
 
     public login = async (data: IUser) => {
         const user = await this.userRepository.findUserByEmail(data.email)
+        new InvalidException("User not found")
         if (!user) {
             throw new InvalidException("User not found")
         }
@@ -39,6 +40,16 @@ export default class UserService {
         }
 
         return this.generateJWTToken(data)
+    }
+
+    public getAllUsers = async () => {
+        let users = await this.userRepository.getAllUser()
+        return users
+    }
+
+    public getUserById = async (id: string) => {
+        let users = await this.userRepository.getUserById(id)
+        return users
     }
 
     private generateJWTToken = async (user: IUser) => {
