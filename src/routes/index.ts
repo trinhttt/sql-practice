@@ -1,4 +1,6 @@
 import authRoutes from './authRoutes'
 import userRoutes from './userRoutes'
+import profileRoutes from './profileRoutes'
 
-export default { authRoutes, userRoutes }
+const routes = [authRoutes, userRoutes, profileRoutes]//??
+export default routes

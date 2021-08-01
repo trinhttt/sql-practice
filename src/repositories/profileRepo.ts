@@ -1,9 +1,5 @@
-// create
-// updateById
-// findById
-
 import { getRepository } from 'typeorm'
-import { Profile } from '../entities/profile'
+import Profile from '../entities/profile'
 import IProfile from '../interfaces/profileInterface'
 
 export default class UserProfileRepository {

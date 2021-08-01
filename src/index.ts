@@ -1,9 +1,7 @@
 import express from "express"
 import dotenv from 'dotenv'
 import config from './config/ormConfig'
-// import * as router from './routes/index'
-import router from './routes/authRoutes'
-// import User from './entities/user'
+import routes from './routes/index'
 import { createConnection, ConnectionOptions } from "typeorm"
 import errorMiddleware from './middlewares/errorHandler'
 dotenv.config()
@@ -12,10 +10,12 @@ const app = express()
 
 const port = process.env.PORT || 3000
 app.use(express.urlencoded({ extended: false }))
-app.use(router)
+
+for (const route of routes) {
+    app.use(route)
+}
 
 function setDbConnection() {
-    console.log( config)
     console.log( process.env.DB_DRIVER)
 
     createConnection(config as ConnectionOptions)

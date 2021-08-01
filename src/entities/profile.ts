@@ -1,11 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToOne, JoinColumn } from 'typeorm'
 export enum ProfileGender {
-    male,
+    male = 0,
     female
 }
+import User from "./user";
 
 @Entity('profiles')
-export class Profile {
+export default class Profile {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -32,4 +33,19 @@ export class Profile {
         name: 'deleted_at'
     })
     deletedAt: Date
+
+    // @OneToOne(() => User)
+    @OneToOne(type => User, user => user.profile)
+    @JoinColumn()
+    user: User
+    // @Column()
+    // imageUrl: string
+
+    // @Column({
+    //     length: 50
+    // })
+    // firstName: string
+
+    // @Column()
+    // lastName: string
 }

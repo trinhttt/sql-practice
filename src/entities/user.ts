@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn } from "typeorm";
+import Profile from "./profile";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, OneToOne, JoinColumn } from "typeorm";
 
 @Entity('users')
 class User {
@@ -34,23 +35,16 @@ class User {
         name: 'deleted_at'
     })
     deletedAt: Date
-    // @Column({
-    //     length: 50
-    // })
-    // firstName: string
 
-    // @Column()
-    // lastName: string
+    // @OneToOne(() => Profile)
+    @OneToOne(type => Profile, profile => profile.user)
 
-    // @Column()
-    // age: number
+    @JoinColumn()
+    profile: Profile
 
-    // @Column()
-    // createAt: string
-
-    // @Column()
-    // imageUrl: string
-
+    //important, if nullable = false, an error will be occur: ALTER TABLE `users` CHANGE `profileId` `profileId` int NOT NULL
+    @Column({ nullable: true })
+    profileId: number
     // @Column()
     // otp: string
 

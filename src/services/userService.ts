@@ -47,9 +47,14 @@ export default class UserService {
         return users
     }
 
-    public getUserById = async (id: string) => {
-        let users = await this.userRepository.getUserById(id)
-        return users
+    public getUserById = async (id: number) => {
+        let user = await this.userRepository.getUserById(id)
+        return user
+    }
+
+    public findByEmail = async (email: string, relations: string[]) => {
+        let user = await this.userRepository.findByEmail(email, relations)
+        return user
     }
 
     private generateJWTToken = async (user: IUser) => {

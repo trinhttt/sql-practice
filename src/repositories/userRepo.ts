@@ -18,7 +18,15 @@ export default class UserRepository {
         return this.userRepo.find()
     }
 
-    getUserById(id: string) {
-        return this.userRepo.find({ where: id })
+    getUserById(id: number) {
+        return this.userRepo.findOne(id)//or: { where: { id } })
+    }
+
+    findByEmail(email: string, relations: string[] = []) {
+        return this.userRepo.findOne({ where: { email }, relations })
+    }
+
+    updateUser(user: User) {
+        return this.userRepo.save(user)
     }
 }

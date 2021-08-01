@@ -1,19 +1,20 @@
 import Joi from 'joi'
-
+import { ProfileGender } from '../entities/profile'
 class ProfileValidator {
     public register() {
         const schema: Joi.AnySchema = Joi.object({
             gender: Joi
-                .string()
+                .number()
                 .required()
+                // .valid(...Object.values(ProfileGender))
                 .messages({
-                    "any.required": "Please enter email",
+                    "any.required": "Please enter gender",
                 }),
-            password: Joi
+            phone: Joi
                 .string()
                 .required()
                 .messages({
-                    "any.required": "Please enter email",
+                    "any.required": "Please enter phone",
                 })
 
         })
