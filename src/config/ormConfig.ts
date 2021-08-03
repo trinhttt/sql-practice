@@ -15,7 +15,7 @@ const config: ConnectionOptions = {
         __dirname + "/../entities/**/*{.js,.ts}",
         ],
     migrations: [
-        "dist/migration/**/*{.js,.ts}", 
+        "../dist/migration/**/*{.js,.ts}", 
         __dirname + "/../migration/**/*{.js,.ts}"
     ],
     subscribers: [

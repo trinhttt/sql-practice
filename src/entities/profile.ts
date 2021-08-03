@@ -38,8 +38,9 @@ export default class Profile {
     @OneToOne(type => User, user => user.profile)
     @JoinColumn()
     user: User
-    // @Column()
-    // imageUrl: string
+
+    @Column({ nullable: true })
+    imageUrl: string
 
     // @Column({
     //     length: 50

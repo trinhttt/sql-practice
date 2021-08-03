@@ -1,6 +1,6 @@
 import express from "express"
 import dotenv from 'dotenv'
-import config from './config/ormConfig'
+// import config from './config/ormConfig'
 import routes from './routes/index'
 import { createConnection, ConnectionOptions } from "typeorm"
 import errorMiddleware from './middlewares/errorHandler'
@@ -17,8 +17,7 @@ for (const route of routes) {
 
 function setDbConnection() {
     console.log( process.env.DB_DRIVER)
-
-    createConnection(config as ConnectionOptions)
+    createConnection()//(config as ConnectionOptions)
         .then((connection) => {
             console.log("Has connection to db => ", connection.isConnected);
         })
